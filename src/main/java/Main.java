@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+    test
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -66,7 +68,6 @@ public class Main {
                 "7  - Visa alla böcker.\n" +
                 "8  - Visa en lista över alla val.");
     }
-testest
     private static void newBook(String titel, String forfattare){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
