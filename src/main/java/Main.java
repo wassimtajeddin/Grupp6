@@ -13,6 +13,7 @@ public class    Main {
 
     public static void main(String[] args) {
         System.out.printf("hej");
+        System.out.println("tja");
         boolean quit = false;
         printActions();
         while(!quit) {
