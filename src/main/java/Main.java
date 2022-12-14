@@ -60,6 +60,7 @@ public class Main {
                 "1  - Visa en bok\n" +
                 "2  - Visa alla böcker för en författare\n" +
                 "3  - Visa antal böcker\n" +
+                        "3  - tesr\n" +
                 "4  - Lägg till en bok\n" +
                 "5  - Uppdatera en bok\n" +
                 "6  - Ta bort en bok\n" +
