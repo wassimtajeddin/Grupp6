@@ -7,13 +7,12 @@ import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class    Main {
 
-    test
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-
+        System.out.printf("hej");
         boolean quit = false;
         printActions();
         while(!quit) {
