@@ -1,3 +1,7 @@
+import entity.AdditionEntity;
+import entity.DivitionEntity;
+import entity.MultiplicationEntity;
+import entity.SubtractionEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -14,7 +18,7 @@ public class    Main {
         System.out.printf("hej");
         System.out.println("tja");
         boolean quit = false;
-        printActions();
+        printMenu();
         while(!quit) {
             System.out.println("\nVälj (8 för att visa val):");
             int action = scanner.nextInt();
@@ -27,16 +31,16 @@ public class    Main {
                     break;
 
                 case 1:
-                    showBook();
+                    addNumbers();
                     break;
                 case 2:
-                    showBookByAuthor();
+                    //showBookByAuthor();
                     break;
                 case 3:
-                    countBooksQuery();
+                    //countBooksQuery();
                     break;
                 case 4:
-                    newBookInput();
+                    //newBookInput();
                     break;
                 case 5:
                     updateBook();
@@ -49,52 +53,141 @@ public class    Main {
                     //showBooksNamedQuery();
                     break;
                 case 8:
-                    printActions();
+                    printMenu();
                     break;
             }
         }
     }
 
-    private static void printActions() {
+    private static void printMenu() {
         System.out.println("\nVälj:\n");
         System.out.println("0  - Stäng av\n" +
-                "1  - Visa en bok\n" +
-                "2  - Visa alla böcker för en författare\n" +
-                "3  - Visa antal böcker\n" +
-                "4  - Lägg till en bok\n" +
-                "5  - Uppdatera en bok\n" +
-                "6  - Ta bort en bok\n" +
-                "7  - Visa alla böcker.\n" +
+                "1  - Lägg till tal\n" +
+                "2  - Öva på tal\n" +
+                "3  - Prov\n" +
+                "4  - \n" +
+                "5  - \n" +
+                "6  - \n" +
+                "7  - \n" +
                 "8  - Visa en lista över alla val.");
     }
-    private static void newBook(String titel, String forfattare){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        BokEntity bok = new BokEntity();
+    private static void addNumbers(){
+        System.out.println("\nVälj tal typ:\n");
+        System.out.println(
+                "1  - Addition\n" +
+                "2  - Subtraktion\n" +
+                "3  - Multiplikation\n" +
+                "4  - Division");
+        int userChoose = scanner.nextInt();
 
-        bok.setBokTitel(titel);
-        bok.setBokForfattare(forfattare);
-
-
-        entityManager.persist(bok);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
-
-        System.out.println("Du har lagt till en bok");
+        switch (userChoose) {
+            case 1:
+                addAddition();
+                break;
+            case 2:
+                addSubtraction();
+                break;
+            case 3:
+                addMultiplication();
+                break;
+            case 4:
+                addDivision();
+                break;
+        }
     }
 
-    private static void newBookInput(){
-        System.out.println("Skriv in titel på boken: ");
-        String inputTitel = scanner.nextLine();
-        System.out.println("Skriv in författare på boken: ");
-        String inputForfattare = scanner.nextLine();
-        newBook(inputTitel,inputForfattare);
+    private static void addAddition(){
+        System.out.println("Additionsuppgift ?");
+        scanner.nextLine();
+        String inputAnswer = scanner.nextLine();
+
+        System.out.println("Svar ?: ");
+        int inputQuestion = scanner.nextInt();
+        newNumber(inputAnswer,inputQuestion,1);
+        scanner.nextLine();
+
+    }
+    private static void addSubtraction(){
+        System.out.println("Subtraktionsuppgift ?");
+        scanner.nextLine();
+        String inputAnswer = scanner.nextLine();
+
+        System.out.println("Svar ?: ");
+        int inputQuestion = scanner.nextInt();
+        newNumber(inputAnswer,inputQuestion,2);
+        scanner.nextLine();
+
+    }
+    private static void addMultiplication(){
+        System.out.println("Multiplikationsuppgift ?");
+        scanner.nextLine();
+        String inputAnswer = scanner.nextLine();
+
+        System.out.println("Svar ?: ");
+        int inputQuestion = scanner.nextInt();
+        newNumber(inputAnswer,inputQuestion,3);
+        scanner.nextLine();
+    }
+    private static void addDivision(){
+        System.out.println("divitionsuppgift ?");
+        scanner.nextLine();
+        String inputAnswer = scanner.nextLine();
+
+        System.out.println("Svar ?: ");
+        int inputQuestion = scanner.nextInt();
+        newNumber(inputAnswer,inputQuestion,4);
         scanner.nextLine();
     }
 
-    private static void showBook(){
+    private static void newNumber(String question, int answer, int id) {
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        if (id == 1) {
+            AdditionEntity addition = new AdditionEntity();
+            addition.setAdditionQuestion(question);
+            addition.setAdditionAnswer(answer);
+            entityManager.persist(addition);
+
+        } else if (id == 2) {
+            SubtractionEntity subtraction = new SubtractionEntity();
+            subtraction.setSubtractionQuestion(question);
+            subtraction.setSubtractionAnswer(answer);
+            entityManager.persist(subtraction);
+
+        } else if (id == 3) {
+
+            MultiplicationEntity multiplication = new MultiplicationEntity();
+            multiplication.setMultiplicationQuestion(question);
+            multiplication.setMultiplicationAnswer(answer);
+            entityManager.persist(multiplication);
+
+        } else if (id ==4)
+        {
+            DivitionEntity divition = new DivitionEntity();
+            divition.setDivitionQuestion(question);
+            divition.setDivitionAnswer(answer);
+            entityManager.persist(divition);
+        }
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
+        System.out.println("Du har lagt till ett nytt tal");
+    }
+
+    /*private static void newNumberInput(){
+        System.out.println("");
+        System.out.println("Skriv tals frågan: ");
+        String inputAnswer = scanner.nextLine();
+        System.out.println("Skriv in svaret: ");
+        int inputQuestion = scanner.nextInt();
+        newNumber(inputAnswer,inputQuestion,);
+        scanner.nextLine();
+    }
+
+   /* private static void showBook(){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         BokEntity bok = entityManager.find( BokEntity.class, 1 );
@@ -183,6 +276,6 @@ public class    Main {
 
         System.out.println(query.getSingleResult());
     }
-
+*/
 }
 
