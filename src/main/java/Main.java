@@ -40,19 +40,6 @@ public class    Main {
                     //countBooksQuery();
                     break;
                 case 4:
-                    //newBookInput();
-                    break;
-                case 5:
-                    updateBook();
-                    break;
-                case 6:
-                    deleteBook();
-                    break;
-                case 7:
-                    showBooksQuery();
-                    //showBooksNamedQuery();
-                    break;
-                case 8:
                     printMenu();
                     break;
             }
