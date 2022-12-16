@@ -6,8 +6,12 @@
     <persistence-unit name="default">
 
         <class>entity.BokEntity</class>
+        <class>entity.AdditionEntity</class>
+        <class>entity.DivitionEntity</class>
+        <class>entity.MultiplicationEntity</class>
+        <class>entity.SubtractionEntity</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/demoJPAManyToOne"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/grupp6"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="Yeay"/>
             <property name="hibernate.connection.password" value="1234"/>

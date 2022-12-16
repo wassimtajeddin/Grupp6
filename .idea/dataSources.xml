@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="demoJPAManyToOne" uuid="e6b26c84-e487-405c-9c02-5ce9c216a30f">
+    <data-source source="LOCAL" name="math" uuid="2a6ff332-b80f-4fa4-8c35-e34079be2b0a">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/demoJPAManyToOne</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/grupp6</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
