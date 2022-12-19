@@ -44,7 +44,7 @@ public class    Main {
                     break;
 
                 case 6:
-
+                    showAllNumbers();
                     break;
                 case 9:
                     printMenu();
@@ -52,6 +52,23 @@ public class    Main {
             }
         }
     }
+
+    private static void showAllNumbers() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query queryAddition = entityManager.createQuery("SELECT COUNT(b.additionId) FROM AdditionEntity b");
+        Query querySubstraction = entityManager.createQuery("SELECT COUNT(b.subtractionId) FROM SubtractionEntity b");
+        Query queryMultiplication = entityManager.createQuery("SELECT COUNT(b.multiplicationId) FROM MultiplicationEntity b");
+        Query queryDivition = entityManager.createQuery("SELECT COUNT(b.divitionId) FROM DivitionEntity b");
+
+        System.out.println("Antal additionstal: " + queryAddition.getSingleResult() + " st");
+        System.out.println("Antal subtraktionstal: " + querySubstraction.getSingleResult() + " st");
+        System.out.println("Antal multiplikationstal: " + queryMultiplication.getSingleResult() + " st");
+        System.out.println("Antal divisionstal: " + queryDivition.getSingleResult() + " st");
+
+    }
+
 
     private static void printMenu() {
         System.out.println("\nVälj:\n");
@@ -61,7 +78,7 @@ public class    Main {
                 "3  - Prov \n" +
                 "4  - Uppdatera ett tal\n" +
                 "5  - Ta bort ett tal\n" +
-                "6  - Visa alla tal i databasen \n" +
+                "6  - Antal tal i databasen \n" +
                 "9  - Visa en lista över alla val");
     }
     private static void deleteNumbers() {
