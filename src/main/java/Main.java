@@ -47,7 +47,7 @@ public class    Main {
                     break;
 
                 case 6:
-                  
+
                     break;
                 case 9:
                     printMenu();
@@ -394,6 +394,20 @@ public class    Main {
         Query query = entityManager.createQuery("SELECT COUNT(b.bokId) FROM BokEntity b");
 
         System.out.println(query.getSingleResult());
+    }
+
+    private static void updateBook(){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        BokEntity bok = entityManager.find( BokEntity.class, 1 );
+        bok.setBokTitel("Vi på Saltkråkan");
+        bok.setBokForfattare("Astrid Lindgren");
+        entityManager.persist(bok);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
+        System.out.println("Du har uppdaterat boken");
     }
 */
 }
