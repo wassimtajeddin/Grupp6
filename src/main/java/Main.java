@@ -40,6 +40,16 @@ public class    Main {
                     //countBooksQuery();
                     break;
                 case 4:
+
+                    break;
+                case 5:
+
+                    break;
+
+                case 6:
+                  
+                    break;
+                case 9:
                     printMenu();
                     break;
             }
@@ -51,13 +61,134 @@ public class    Main {
         System.out.println("0  - Stäng av\n" +
                 "1  - Lägg till tal\n" +
                 "2  - Öva på tal\n" +
-                "3  - Prov\n" +
-                "4  - \n" +
-                "5  - \n" +
-                "6  - \n" +
-                "7  - \n" +
-                "8  - Visa en lista över alla val.");
+                "3  - Prov \n" +
+                "4  - Uppdatera ett tal\n" +
+                "5  - Ta bort ett tal\n" +
+                "6  - Visa alla tal i databasen \n" +
+                "9  - Visa en lista över alla val");
     }
+    private static void practiceNumbersMenu(){
+        System.out.println(
+                "1 - Öva på addition\n" +
+                "2 - Öva på subtraktion\n" +
+                "3 - Öva på multiplikation\n" +
+                "4 - Öva på division");
+
+        int userChoose = scanner.nextInt();
+
+        switch (userChoose) {
+            case 1:
+                practiceAddtition();
+                break;
+            case 2:
+                practiceSubtraction();
+                break;
+            case 3:
+                practiceMultiplication();
+                break;
+            case 4:
+                practiceDivision();
+                break;
+        }
+    }
+
+    private static void practiceAddtition() {
+        boolean avsluta = true;
+        while (avsluta) {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createQuery("SELECT COUNT(b.additionId) FROM AdditionEntity b");
+            System.out.println("Antal additionsrader: " + query.getSingleResult());
+            double randomID = Math.floor(Math.random() * Double.parseDouble(query.getSingleResult().toString())) + 1;
+            AdditionEntity addition = entityManager.find(AdditionEntity.class, randomID);
+            System.out.println("vill du avsluta övningen skriv: 00");
+            System.out.println("Uppgiften = " + addition.getAdditionQuestion());
+            int userInput = scanner.nextInt();
+            if (userInput == 00){
+                avsluta = false;
+                break;
+            }
+            if (userInput == addition.getAdditionAnswer())
+                System.out.println("Rätt");
+            else
+                System.out.println("Fel, rätt svar är: " + addition.getAdditionAnswer());
+        }
+    }
+
+    private static void practiceSubtraction() {
+        boolean avsluta = true;
+        while (avsluta) {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createQuery("SELECT COUNT(b.subtractionId) FROM SubtractionEntity b");
+            System.out.println("Antal subtraktionsrader: " + query.getSingleResult());
+            double randomID = Math.floor(Math.random() * Double.parseDouble(query.getSingleResult().toString())) + 1;
+            SubtractionEntity subtraction = entityManager.find(SubtractionEntity.class, randomID);
+            System.out.println("vill du avsluta övningen skriv: 00");
+            System.out.println("Uppgiften = " + subtraction.getSubtractionQuestion());
+            int userInput = scanner.nextInt();
+            if (userInput == 00){
+                avsluta = false;
+                break;
+            }
+            if (userInput == subtraction.getSubtractionAnswer())
+                System.out.println("Rätt");
+            else
+                System.out.println("Fel, rätt svar är: " + subtraction.getSubtractionAnswer());
+        }
+    }
+
+    private static void practiceMultiplication() {
+        boolean avsluta = true;
+        while (avsluta) {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createQuery("SELECT COUNT(b.multiplicationId) FROM MultiplicationEntity b");
+            System.out.println("Antal multiplikationsrader: " + query.getSingleResult());
+            double randomID = Math.floor(Math.random() * Double.parseDouble(query.getSingleResult().toString())) + 1;
+            MultiplicationEntity multiplication = entityManager.find(MultiplicationEntity.class, randomID);
+            System.out.println("vill du avsluta övningen skriv: 00");
+            System.out.println("Uppgiften = " + multiplication.getMultiplicationQuestion());
+            int userInput = scanner.nextInt();
+            if (userInput == 0) {
+                avsluta = false;
+                break;
+            }
+            if (userInput == multiplication.getMultiplicationAnswer())
+                System.out.println("Rätt");
+            else
+                System.out.println("Fel, rätt svar är: " + multiplication.getMultiplicationAnswer());
+
+        }
+    }
+    private static void practiceDivision() {
+        Boolean avsluta = true;
+        while (avsluta) {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createQuery("SELECT COUNT(b.divitionId) FROM DivitionEntity b");
+            System.out.println("Antal divisionsrader: " + query.getSingleResult());
+            double randomID = Math.floor(Math.random() * Double.parseDouble(query.getSingleResult().toString())) + 1;
+            DivitionEntity division = entityManager.find(DivitionEntity.class, randomID);
+            System.out.println("vill du avsluta övningen skriv: 00");
+            System.out.println("Uppgiften = " + division.getDivitionQuestion());
+            int userInput = scanner.nextInt();
+            if (userInput == 00){
+                avsluta = false;
+                break;
+            }
+            if (userInput == division.getDivitionAnswer())
+                System.out.println("Rätt");
+            else
+                System.out.println("Fel, rätt svar är: " + division.getDivitionAnswer());
+        }
+    }
+
+
     private static void addNumbers(){
         System.out.println("\nVälj tal typ:\n");
         System.out.println(
@@ -163,6 +294,7 @@ public class    Main {
         entityManagerFactory.close();
         System.out.println("Du har lagt till ett nytt tal");
     }
+
 
     /*private static void newNumberInput(){
         System.out.println("");
