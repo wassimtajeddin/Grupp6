@@ -14,13 +14,11 @@ public class    Main {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        System.out.printf("hej");
-        System.out.println("tja");
+    public static void main(String[] args){
         boolean quit = false;
         printMenu();
         while(!quit) {
-            System.out.println("\nVälj (8 för att visa val):");
+            System.out.println("\nVälj (9 för att visa val):");
             int action = scanner.nextInt();
             scanner.nextLine();
 
@@ -34,16 +32,15 @@ public class    Main {
                     addNumbers();
                     break;
                 case 2:
-                    //showBookByAuthor();
+                    practiceNumbersMenu();
                     break;
                 case 3:
-                    //countBooksQuery();
                     break;
                 case 4:
-
+                    updateNumbers();
                     break;
                 case 5:
-
+                    deleteNumbers();
                     break;
 
                 case 6:
@@ -67,6 +64,148 @@ public class    Main {
                 "6  - Visa alla tal i databasen \n" +
                 "9  - Visa en lista över alla val");
     }
+    private static void deleteNumbers() {
+        System.out.println(
+                "1 - Ta bort ett tal i addition\n" +
+                        "2 - Ta bort ett tal i subtraktion\n" +
+                        "3 - Ta bort ett tal i Multiplikation\n" +
+                        "4 - Ta bort ett tal i division");
+
+        int userChoose = scanner.nextInt();
+
+        switch (userChoose) {
+            case 1:
+                deleteAddtitionNumber();
+                break;
+            case 2:
+                deleteSubtractionNumber();
+                break;
+            case 3:
+                deleteMultiplicationNumber();
+                break;
+            case 4:
+                deleteDivisionNumber();
+                break;
+        }
+    }
+
+    private static void deleteAddtitionNumber() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("SELECT b FROM AdditionEntity b");
+        List<AdditionEntity> list = query.getResultList();
+
+        for (AdditionEntity b : list) {
+            System.out.print(b.getAdditionId() + ". Fråga:" + b.getAdditionQuestion());
+            System.out.println("\t Svar:" + b.getAdditionAnswer());
+        }
+
+        System.out.println("\nVilket ID vill du radera? ");
+        int userInputID = scanner.nextInt();
+        scanner.nextLine();
+        AdditionEntity deleteAddition = entityManager.find(AdditionEntity.class, userInputID);
+        entityManager.remove(deleteAddition);
+        entityManager.getTransaction().commit();
+        List<AdditionEntity> listUpdated = query.getResultList();
+        for (AdditionEntity b : listUpdated) {
+            System.out.print(b.getAdditionId() + ". Fråga:" + b.getAdditionQuestion());
+            System.out.println("\t Svar:" + b.getAdditionAnswer());
+        }
+            entityManager.close();
+            entityManagerFactory.close();
+            System.out.println("\nDu har raderat ett tal");
+    }
+
+    private static void deleteSubtractionNumber() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("SELECT b FROM SubtractionEntity b");
+        List<SubtractionEntity> list = query.getResultList();
+
+        for (SubtractionEntity b : list) {
+            System.out.print(b.getSubtractionId() + ". Fråga:" + b.getSubtractionQuestion());
+            System.out.println("\t Svar:" + b.getSubtractionAnswer());
+        }
+
+        System.out.println("\nVilket ID vill du radera? ");
+        int userInputID = scanner.nextInt();
+        scanner.nextLine();
+        SubtractionEntity deleteSubtraction = entityManager.find(SubtractionEntity.class, userInputID);
+        entityManager.remove(deleteSubtraction);
+        entityManager.getTransaction().commit();
+        List<SubtractionEntity> listUpdated = query.getResultList();
+        for (SubtractionEntity b : listUpdated) {
+            System.out.print(b.getSubtractionId() + ". Fråga:" + b.getSubtractionQuestion());
+            System.out.println("\t Svar:" + b.getSubtractionAnswer());
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+        System.out.println("\nDu har raderat ett tal");
+    }
+
+
+    private static void deleteMultiplicationNumber() {
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("SELECT b FROM MultiplicationEntity b");
+        List<MultiplicationEntity> list = query.getResultList();
+
+        for (MultiplicationEntity b : list) {
+            System.out.print(b.getMultiplicationId() + ". Fråga:" + b.getMultiplicationQuestion());
+            System.out.println("\t Svar:" + b.getMultiplicationAnswer());
+        }
+
+        System.out.println("\nVilket ID vill du radera? ");
+        int userInputID = scanner.nextInt();
+        scanner.nextLine();
+        MultiplicationEntity deleteMultiplication = entityManager.find(MultiplicationEntity.class, userInputID);
+        entityManager.remove(deleteMultiplication);
+        entityManager.getTransaction().commit();
+        List<MultiplicationEntity> listUpdate = query.getResultList();
+        for (MultiplicationEntity b : listUpdate) {
+            System.out.print(b.getMultiplicationId() + ". Fråga:" + b.getMultiplicationQuestion());
+            System.out.println("\t Svar:" + b.getMultiplicationAnswer());
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+        System.out.println("\nDu har raderat ett tal");
+    }
+
+
+
+    private static void deleteDivisionNumber() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("SELECT b FROM DivitionEntity b");
+        List<DivitionEntity> deleteDivitionList = query.getResultList();
+
+        for (DivitionEntity b : deleteDivitionList) {
+            System.out.print(b.getDivitionId() + ". Fråga:" + b.getDivitionQuestion());
+            System.out.println("\t Svar:" + b.getDivitionAnswer());
+        }
+
+        System.out.println("\nVilket ID vill du radera? ");
+        int userInputID = scanner.nextInt();
+        scanner.nextLine();
+        DivitionEntity deleteDivition = entityManager.find(DivitionEntity.class, userInputID);
+        entityManager.remove(deleteDivition);
+        entityManager.getTransaction().commit();
+        List<DivitionEntity> listUpdated = query.getResultList();
+        for (DivitionEntity b : listUpdated) {
+            System.out.print(b.getDivitionId() + ". Fråga:" + b.getDivitionQuestion());
+            System.out.println("\t Svar:" + b.getDivitionAnswer());
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+        System.out.println("\nDu har raderat ett tal");
+    }
+
+
     private static void practiceNumbersMenu(){
         System.out.println(
                 "1 - Öva på addition\n" +
@@ -90,6 +229,184 @@ public class    Main {
                 practiceDivision();
                 break;
         }
+    }
+
+    private static void updateNumbers(){
+        System.out.println(
+                    "1 - Uppdatera ett tal i addition\n" +
+                    "2 - Uppdatera ett tal i subtraktion\n" +
+                    "3 - Uppdatera ett tal i multiplikation\n" +
+                    "4 - Uppdatera ett tal i division");
+
+        int userChoose = scanner.nextInt();
+
+        switch (userChoose) {
+            case 1:
+                updateAddtition();
+                break;
+            case 2:
+                updateSubtraction();
+                break;
+            case 3:
+                updateMultiplication();
+                break;
+            case 4:
+                updateDivision();
+                break;
+        }
+    }
+
+       private static void updateAddtition() {
+           EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+           EntityManager entityManager = entityManagerFactory.createEntityManager();
+           entityManager.getTransaction().begin();
+           AdditionEntity addition = entityManager.find(AdditionEntity.class, 1);
+           Query query = entityManager.createQuery("SELECT b FROM AdditionEntity b");
+           List<AdditionEntity> list = query.getResultList();
+
+           for (AdditionEntity b : list) {
+               System.out.print(b.getAdditionId() + ". Fråga:" + b.getAdditionQuestion());
+               System.out.println("\t Svar:" + b.getAdditionAnswer());
+           }
+
+           System.out.println("Vilket ID vill du uppdatera? ");
+           int userInputID = scanner.nextInt();
+           scanner.nextLine();
+           AdditionEntity updateAddition = entityManager.find(AdditionEntity.class, userInputID);
+           System.out.println("Skriv in din fråga ");
+           String userUpdateQuestion = scanner.nextLine();
+           updateAddition.setAdditionQuestion(userUpdateQuestion);
+           System.out.println("Skriv svaret ");
+           int userUpdateAnswer = scanner.nextInt();
+           scanner.nextLine();
+           updateAddition.setAdditionAnswer(userUpdateAnswer);
+
+           entityManager.persist(addition);
+           entityManager.getTransaction().commit();
+           List<AdditionEntity> listUpdated = query.getResultList();
+           for (AdditionEntity b : listUpdated) {
+               System.out.print(b.getAdditionId() + ". Fråga:" + b.getAdditionQuestion());
+               System.out.println("\t Svar:" + b.getAdditionAnswer());
+           entityManager.close();
+           entityManagerFactory.close();
+
+
+           }
+           System.out.println("Du har uppdaterat ett tal");
+
+       }
+    private static void updateSubtraction() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        SubtractionEntity subtraction = entityManager.find(SubtractionEntity.class, 1);
+        Query query = entityManager.createQuery("SELECT b FROM SubtractionEntity b");
+        List<SubtractionEntity> list = query.getResultList();
+
+        for (SubtractionEntity b : list) {
+            System.out.print(b.getSubtractionId() + ". Fråga:" + b.getSubtractionQuestion());
+            System.out.println("\t Svar:" + b.getSubtractionAnswer());
+        }
+
+        System.out.println("Vilket ID vill du uppdatera? ");
+        int userInputID = scanner.nextInt();
+        scanner.nextLine();
+        SubtractionEntity updateSubtraction = entityManager.find(SubtractionEntity.class, userInputID);
+        System.out.println("Skriv in din fråga ");
+        String userUpdateQuestion = scanner.nextLine();
+        updateSubtraction.setSubtractionQuestion(userUpdateQuestion);
+        System.out.println("Skriv svaret ");
+        int userUpdateAnswer = scanner.nextInt();
+        scanner.nextLine();
+        updateSubtraction.setSubtractionAnswer(userUpdateAnswer);
+
+        entityManager.persist(subtraction);
+        entityManager.getTransaction().commit();
+        List<SubtractionEntity> listUpdated = query.getResultList();
+        for (SubtractionEntity b : listUpdated) {
+            System.out.print(b.getSubtractionId() + ". Fråga:" + b.getSubtractionQuestion());
+            System.out.println("\t Svar:" + b.getSubtractionAnswer());
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+
+        System.out.println("Du har uppdaterat ett tal");
+
+    }
+    private static void updateMultiplication() {
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        MultiplicationEntity multiplication = entityManager.find( MultiplicationEntity.class, 1 );
+        Query query = entityManager.createQuery("SELECT b FROM MultiplicationEntity b");
+        List<MultiplicationEntity> list = query.getResultList( );
+
+        for( MultiplicationEntity b:list ) {
+            System.out.print(b.getMultiplicationId() + ". Fråga:" + b.getMultiplicationQuestion());
+            System.out.println("\t Svar:" + b.getMultiplicationAnswer());
+        }
+
+        System.out.println("Vilket ID vill du uppdatera? ");
+        int userInputID = scanner.nextInt();
+        scanner.nextLine();
+        MultiplicationEntity updateMultiplication = entityManager.find( MultiplicationEntity.class, userInputID );
+        System.out.println("Skriv in din fråga ");
+        String userUpdateQuestion = scanner.nextLine();
+        updateMultiplication.setMultiplicationQuestion(userUpdateQuestion);
+        System.out.println("Skriv svaret ");
+        int userUpdateAnswer = scanner.nextInt();
+        scanner.nextLine();
+        updateMultiplication.setMultiplicationAnswer(userUpdateAnswer);
+
+        entityManager.persist(multiplication);
+        entityManager.getTransaction().commit();
+        List<MultiplicationEntity> listUpdated = query.getResultList();
+        for (MultiplicationEntity b : listUpdated) {
+            System.out.print(b.getMultiplicationId() + ". Fråga:" + b.getMultiplicationQuestion());
+            System.out.println("\t Svar:" + b.getMultiplicationAnswer());
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+
+        System.out.println("Du har uppdaterat ett tal");
+    }
+    private static void updateDivision() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        DivitionEntity divition = entityManager.find( DivitionEntity.class, 1 );
+        Query query = entityManager.createQuery("SELECT b FROM DivitionEntity b");
+        List<DivitionEntity> list = query.getResultList( );
+
+        for( DivitionEntity b:list ) {
+            System.out.print(b.getDivitionId() + ". Fråga:" + b.getDivitionQuestion());
+            System.out.println("\t Svar:" + b.getDivitionAnswer());
+        }
+        System.out.println("Vilket ID vill du uppdatera? ");
+        int userInputID = scanner.nextInt();
+        scanner.nextLine();
+        DivitionEntity updateDivition = entityManager.find( DivitionEntity.class, userInputID );
+        System.out.println("Skriv in din fråga ");
+        String userUpdateQuestion = scanner.nextLine();
+        updateDivition.setDivitionQuestion(userUpdateQuestion);
+        System.out.println("Skriv svaret ");
+        int userUpdateAnswer = scanner.nextInt();
+        scanner.nextLine();
+        updateDivition.setDivitionAnswer(userUpdateAnswer);
+
+        entityManager.persist(divition);
+        entityManager.getTransaction().commit();
+        List<DivitionEntity> updatedDvitionlist = query.getResultList( );
+
+        for( DivitionEntity b:updatedDvitionlist ) {
+            System.out.print(b.getDivitionId() + ". Fråga:" + b.getDivitionQuestion());
+            System.out.println("\t Svar:" + b.getDivitionAnswer());
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+
+        System.out.println("Du har uppdaterat ett tal");
     }
 
     private static void practiceAddtition() {
@@ -281,8 +598,7 @@ public class    Main {
             multiplication.setMultiplicationAnswer(answer);
             entityManager.persist(multiplication);
 
-        } else if (id ==4)
-        {
+        } else if (id == 4) {
             DivitionEntity divition = new DivitionEntity();
             divition.setDivitionQuestion(question);
             divition.setDivitionAnswer(answer);
@@ -294,6 +610,19 @@ public class    Main {
         entityManagerFactory.close();
         System.out.println("Du har lagt till ett nytt tal");
     }
+    private static void deleteBook(){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        AdditionEntity addition = entityManager.find( AdditionEntity.class, 3 );
+
+        entityManager.remove( addition );
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
+
+        System.out.println("Du har tagit bort talet");
+    }
 
 
     /*private static void newNumberInput(){
@@ -304,7 +633,7 @@ public class    Main {
         int inputQuestion = scanner.nextInt();
         newNumber(inputAnswer,inputQuestion,);
         scanner.nextLine();
-    }
+    }*/
 
    /* private static void showBook(){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
@@ -314,26 +643,13 @@ public class    Main {
         System.out.println("Bok Titel = " + bok.getBokTitel( ));
     }
 
-    private static void updateBook(){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        BokEntity bok = entityManager.find( BokEntity.class, 1 );
-        bok.setBokTitel("Vi på Saltkråkan");
-        bok.setBokForfattare("Astrid Lindgren");
-        entityManager.persist(bok);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
 
-        System.out.println("Du har uppdaterat boken");
-
-    }
 
     private static void deleteBook(){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
+
         BokEntity bok = entityManager.find( BokEntity.class, 3 );
 
         entityManager.remove( bok );

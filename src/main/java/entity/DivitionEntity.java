@@ -3,6 +3,8 @@ package entity;
 import jakarta.persistence.*;
 
 @Entity
+@NamedQuery(query = "SELECT b from DivitionEntity b WHERE b.divitionAnswer = :answer", name = "divitionAnswerQuery")
+@NamedQuery(query = "SELECT b from DivitionEntity b", name = "divitionQuery")
 @Table(name = "divition", schema = "grupp6", catalog = "")
 public class DivitionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
