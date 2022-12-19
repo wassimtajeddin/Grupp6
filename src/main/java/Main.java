@@ -10,14 +10,14 @@ import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Scanner;
 
-public class    Main {
+public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         boolean quit = false;
         printMenu();
-        while(!quit) {
+        while (!quit) {
             System.out.println("\nVälj (9 för att visa val):");
             int action = scanner.nextInt();
             scanner.nextLine();
@@ -81,6 +81,7 @@ public class    Main {
                 "6  - Antal tal i databasen \n" +
                 "9  - Visa en lista över alla val");
     }
+
     private static void deleteNumbers() {
         System.out.println(
                 "1 - Ta bort ett tal i addition\n" +
@@ -129,9 +130,9 @@ public class    Main {
             System.out.print(b.getAdditionId() + ". Fråga:" + b.getAdditionQuestion());
             System.out.println("\t Svar:" + b.getAdditionAnswer());
         }
-            entityManager.close();
-            entityManagerFactory.close();
-            System.out.println("\nDu har raderat ett tal");
+        entityManager.close();
+        entityManagerFactory.close();
+        System.out.println("\nDu har raderat ett tal");
     }
 
     private static void deleteSubtractionNumber() {
@@ -193,7 +194,6 @@ public class    Main {
     }
 
 
-
     private static void deleteDivisionNumber() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -223,12 +223,12 @@ public class    Main {
     }
 
 
-    private static void practiceNumbersMenu(){
+    private static void practiceNumbersMenu() {
         System.out.println(
                 "1 - Öva på addition\n" +
-                "2 - Öva på subtraktion\n" +
-                "3 - Öva på multiplikation\n" +
-                "4 - Öva på division");
+                        "2 - Öva på subtraktion\n" +
+                        "3 - Öva på multiplikation\n" +
+                        "4 - Öva på division");
 
         int userChoose = scanner.nextInt();
 
@@ -248,12 +248,12 @@ public class    Main {
         }
     }
 
-    private static void updateNumbers(){
+    private static void updateNumbers() {
         System.out.println(
-                    "1 - Uppdatera ett tal i addition\n" +
-                    "2 - Uppdatera ett tal i subtraktion\n" +
-                    "3 - Uppdatera ett tal i multiplikation\n" +
-                    "4 - Uppdatera ett tal i division");
+                "1 - Uppdatera ett tal i addition\n" +
+                        "2 - Uppdatera ett tal i subtraktion\n" +
+                        "3 - Uppdatera ett tal i multiplikation\n" +
+                        "4 - Uppdatera ett tal i division");
 
         int userChoose = scanner.nextInt();
 
@@ -273,45 +273,46 @@ public class    Main {
         }
     }
 
-       private static void updateAddtition() {
-           EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-           EntityManager entityManager = entityManagerFactory.createEntityManager();
-           entityManager.getTransaction().begin();
-           AdditionEntity addition = entityManager.find(AdditionEntity.class, 1);
-           Query query = entityManager.createQuery("SELECT b FROM AdditionEntity b");
-           List<AdditionEntity> list = query.getResultList();
+    private static void updateAddtition() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        AdditionEntity addition = entityManager.find(AdditionEntity.class, 1);
+        Query query = entityManager.createQuery("SELECT b FROM AdditionEntity b");
+        List<AdditionEntity> list = query.getResultList();
 
-           for (AdditionEntity b : list) {
-               System.out.print(b.getAdditionId() + ". Fråga:" + b.getAdditionQuestion());
-               System.out.println("\t Svar:" + b.getAdditionAnswer());
-           }
+        for (AdditionEntity b : list) {
+            System.out.print(b.getAdditionId() + ". Fråga:" + b.getAdditionQuestion());
+            System.out.println("\t Svar:" + b.getAdditionAnswer());
+        }
 
-           System.out.println("Vilket ID vill du uppdatera? ");
-           int userInputID = scanner.nextInt();
-           scanner.nextLine();
-           AdditionEntity updateAddition = entityManager.find(AdditionEntity.class, userInputID);
-           System.out.println("Skriv in din fråga ");
-           String userUpdateQuestion = scanner.nextLine();
-           updateAddition.setAdditionQuestion(userUpdateQuestion);
-           System.out.println("Skriv svaret ");
-           int userUpdateAnswer = scanner.nextInt();
-           scanner.nextLine();
-           updateAddition.setAdditionAnswer(userUpdateAnswer);
+        System.out.println("Vilket ID vill du uppdatera? ");
+        int userInputID = scanner.nextInt();
+        scanner.nextLine();
+        AdditionEntity updateAddition = entityManager.find(AdditionEntity.class, userInputID);
+        System.out.println("Skriv in din fråga ");
+        String userUpdateQuestion = scanner.nextLine();
+        updateAddition.setAdditionQuestion(userUpdateQuestion);
+        System.out.println("Skriv svaret ");
+        int userUpdateAnswer = scanner.nextInt();
+        scanner.nextLine();
+        updateAddition.setAdditionAnswer(userUpdateAnswer);
 
-           entityManager.persist(addition);
-           entityManager.getTransaction().commit();
-           List<AdditionEntity> listUpdated = query.getResultList();
-           for (AdditionEntity b : listUpdated) {
-               System.out.print(b.getAdditionId() + ". Fråga:" + b.getAdditionQuestion());
-               System.out.println("\t Svar:" + b.getAdditionAnswer());
-           entityManager.close();
-           entityManagerFactory.close();
+        entityManager.persist(addition);
+        entityManager.getTransaction().commit();
+        List<AdditionEntity> listUpdated = query.getResultList();
+        for (AdditionEntity b : listUpdated) {
+            System.out.print(b.getAdditionId() + ". Fråga:" + b.getAdditionQuestion());
+            System.out.println("\t Svar:" + b.getAdditionAnswer());
+            entityManager.close();
+            entityManagerFactory.close();
 
 
-           }
-           System.out.println("Du har uppdaterat ett tal");
+        }
+        System.out.println("Du har uppdaterat ett tal");
 
-       }
+    }
+
     private static void updateSubtraction() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -350,16 +351,17 @@ public class    Main {
         System.out.println("Du har uppdaterat ett tal");
 
     }
+
     private static void updateMultiplication() {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        MultiplicationEntity multiplication = entityManager.find( MultiplicationEntity.class, 1 );
+        MultiplicationEntity multiplication = entityManager.find(MultiplicationEntity.class, 1);
         Query query = entityManager.createQuery("SELECT b FROM MultiplicationEntity b");
-        List<MultiplicationEntity> list = query.getResultList( );
+        List<MultiplicationEntity> list = query.getResultList();
 
-        for( MultiplicationEntity b:list ) {
+        for (MultiplicationEntity b : list) {
             System.out.print(b.getMultiplicationId() + ". Fråga:" + b.getMultiplicationQuestion());
             System.out.println("\t Svar:" + b.getMultiplicationAnswer());
         }
@@ -367,7 +369,7 @@ public class    Main {
         System.out.println("Vilket ID vill du uppdatera? ");
         int userInputID = scanner.nextInt();
         scanner.nextLine();
-        MultiplicationEntity updateMultiplication = entityManager.find( MultiplicationEntity.class, userInputID );
+        MultiplicationEntity updateMultiplication = entityManager.find(MultiplicationEntity.class, userInputID);
         System.out.println("Skriv in din fråga ");
         String userUpdateQuestion = scanner.nextLine();
         updateMultiplication.setMultiplicationQuestion(userUpdateQuestion);
@@ -388,22 +390,23 @@ public class    Main {
 
         System.out.println("Du har uppdaterat ett tal");
     }
+
     private static void updateDivision() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        DivitionEntity divition = entityManager.find( DivitionEntity.class, 1 );
+        DivitionEntity divition = entityManager.find(DivitionEntity.class, 1);
         Query query = entityManager.createQuery("SELECT b FROM DivitionEntity b");
-        List<DivitionEntity> list = query.getResultList( );
+        List<DivitionEntity> list = query.getResultList();
 
-        for( DivitionEntity b:list ) {
+        for (DivitionEntity b : list) {
             System.out.print(b.getDivitionId() + ". Fråga:" + b.getDivitionQuestion());
             System.out.println("\t Svar:" + b.getDivitionAnswer());
         }
         System.out.println("Vilket ID vill du uppdatera? ");
         int userInputID = scanner.nextInt();
         scanner.nextLine();
-        DivitionEntity updateDivition = entityManager.find( DivitionEntity.class, userInputID );
+        DivitionEntity updateDivition = entityManager.find(DivitionEntity.class, userInputID);
         System.out.println("Skriv in din fråga ");
         String userUpdateQuestion = scanner.nextLine();
         updateDivition.setDivitionQuestion(userUpdateQuestion);
@@ -414,9 +417,9 @@ public class    Main {
 
         entityManager.persist(divition);
         entityManager.getTransaction().commit();
-        List<DivitionEntity> updatedDvitionlist = query.getResultList( );
+        List<DivitionEntity> updatedDvitionlist = query.getResultList();
 
-        for( DivitionEntity b:updatedDvitionlist ) {
+        for (DivitionEntity b : updatedDvitionlist) {
             System.out.print(b.getDivitionId() + ". Fråga:" + b.getDivitionQuestion());
             System.out.println("\t Svar:" + b.getDivitionAnswer());
         }
@@ -439,7 +442,7 @@ public class    Main {
             System.out.println("vill du avsluta övningen skriv: 00");
             System.out.println("Uppgiften = " + addition.getAdditionQuestion());
             int userInput = scanner.nextInt();
-            if (userInput == 00){
+            if (userInput == 00) {
                 avsluta = false;
                 break;
             }
@@ -463,7 +466,7 @@ public class    Main {
             System.out.println("vill du avsluta övningen skriv: 00");
             System.out.println("Uppgiften = " + subtraction.getSubtractionQuestion());
             int userInput = scanner.nextInt();
-            if (userInput == 00){
+            if (userInput == 00) {
                 avsluta = false;
                 break;
             }
@@ -498,6 +501,7 @@ public class    Main {
 
         }
     }
+
     private static void practiceDivision() {
         Boolean avsluta = true;
         while (avsluta) {
@@ -511,7 +515,7 @@ public class    Main {
             System.out.println("vill du avsluta övningen skriv: 00");
             System.out.println("Uppgiften = " + division.getDivitionQuestion());
             int userInput = scanner.nextInt();
-            if (userInput == 00){
+            if (userInput == 00) {
                 avsluta = false;
                 break;
             }
@@ -523,13 +527,13 @@ public class    Main {
     }
 
 
-    private static void addNumbers(){
+    private static void addNumbers() {
         System.out.println("\nVälj tal typ:\n");
         System.out.println(
                 "1  - Addition\n" +
-                "2  - Subtraktion\n" +
-                "3  - Multiplikation\n" +
-                "4  - Division");
+                        "2  - Subtraktion\n" +
+                        "3  - Multiplikation\n" +
+                        "4  - Division");
         int userChoose = scanner.nextInt();
 
         switch (userChoose) {
@@ -548,46 +552,49 @@ public class    Main {
         }
     }
 
-    private static void addAddition(){
+    private static void addAddition() {
         System.out.println("Additionsuppgift ?");
         scanner.nextLine();
         String inputAnswer = scanner.nextLine();
 
         System.out.println("Svar ?: ");
         int inputQuestion = scanner.nextInt();
-        newNumber(inputAnswer,inputQuestion,1);
+        newNumber(inputAnswer, inputQuestion, 1);
         scanner.nextLine();
 
     }
-    private static void addSubtraction(){
+
+    private static void addSubtraction() {
         System.out.println("Subtraktionsuppgift ?");
         scanner.nextLine();
         String inputAnswer = scanner.nextLine();
 
         System.out.println("Svar ?: ");
         int inputQuestion = scanner.nextInt();
-        newNumber(inputAnswer,inputQuestion,2);
+        newNumber(inputAnswer, inputQuestion, 2);
         scanner.nextLine();
 
     }
-    private static void addMultiplication(){
+
+    private static void addMultiplication() {
         System.out.println("Multiplikationsuppgift ?");
         scanner.nextLine();
         String inputAnswer = scanner.nextLine();
 
         System.out.println("Svar ?: ");
         int inputQuestion = scanner.nextInt();
-        newNumber(inputAnswer,inputQuestion,3);
+        newNumber(inputAnswer, inputQuestion, 3);
         scanner.nextLine();
     }
-    private static void addDivision(){
+
+    private static void addDivision() {
         System.out.println("divitionsuppgift ?");
         scanner.nextLine();
         String inputAnswer = scanner.nextLine();
 
         System.out.println("Svar ?: ");
         int inputQuestion = scanner.nextInt();
-        newNumber(inputAnswer,inputQuestion,4);
+        newNumber(inputAnswer, inputQuestion, 4);
         scanner.nextLine();
     }
 
@@ -627,13 +634,14 @@ public class    Main {
         entityManagerFactory.close();
         System.out.println("Du har lagt till ett nytt tal");
     }
-    private static void deleteBook(){
+
+    private static void deleteBook() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        AdditionEntity addition = entityManager.find( AdditionEntity.class, 3 );
+        AdditionEntity addition = entityManager.find(AdditionEntity.class, 3);
 
-        entityManager.remove( addition );
+        entityManager.remove(addition);
         entityManager.getTransaction().commit();
         entityManager.close();
         entityManagerFactory.close();
