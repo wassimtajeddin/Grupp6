@@ -2,6 +2,8 @@ package entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @NamedQuery(query = "SELECT b from DivitionEntity b WHERE b.divitionAnswer = :answer", name = "divitionAnswerQuery")
 @NamedQuery(query = "SELECT b from DivitionEntity b", name = "divitionQuery")
@@ -50,12 +52,9 @@ public class DivitionEntity {
         DivitionEntity that = (DivitionEntity) o;
 
         if (divitionId != that.divitionId) return false;
-        if (divitionQuestion != null ? !divitionQuestion.equals(that.divitionQuestion) : that.divitionQuestion != null)
+        if (!Objects.equals(divitionQuestion, that.divitionQuestion))
             return false;
-        if (divitionAnswer != null ? !divitionAnswer.equals(that.divitionAnswer) : that.divitionAnswer != null)
-            return false;
-
-        return true;
+        return Objects.equals(divitionAnswer, that.divitionAnswer);
     }
 
     @Override

@@ -2,6 +2,8 @@ package entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @NamedQuery(query = "SELECT b from MultiplicationEntity b WHERE b.multiplicationAnswer = :answer", name = "multiplicationAnswerQuery")
 @NamedQuery(query = "SELECT b from MultiplicationEntity b", name = "multiplicationQuery")
@@ -51,12 +53,9 @@ public class MultiplicationEntity {
         MultiplicationEntity that = (MultiplicationEntity) o;
 
         if (multiplicationId != that.multiplicationId) return false;
-        if (multiplicationQuestion != null ? !multiplicationQuestion.equals(that.multiplicationQuestion) : that.multiplicationQuestion != null)
+        if (!Objects.equals(multiplicationQuestion, that.multiplicationQuestion))
             return false;
-        if (multiplicationAnswer != null ? !multiplicationAnswer.equals(that.multiplicationAnswer) : that.multiplicationAnswer != null)
-            return false;
-
-        return true;
+        return Objects.equals(multiplicationAnswer, that.multiplicationAnswer);
     }
 
     @Override
