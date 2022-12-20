@@ -24,7 +24,7 @@ public class Main {
 
             switch (action) {
                 case 0:
-                    System.out.println("\nStänger ner...");
+                    System.out.println("\n Avslutat!");
                     quit = true;
                     break;
 
