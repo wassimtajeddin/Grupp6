@@ -6,13 +6,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
-
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         boolean quit = false;
@@ -27,24 +26,23 @@ public class Main {
                     System.out.println("\n Avslutat!");
                     quit = true;
                     break;
-
                 case 1:
                     addNumbers();
                     break;
                 case 2:
-                    practiceNumbersMenu();
+                    showAllNumbers();
                     break;
                 case 3:
-                    break;
-                case 4:
                     updateNumbers();
                     break;
-                case 5:
+                case 4:
                     deleteNumbers();
                     break;
-
+                case 5:
+                    practiceNumbersMenu();
+                    break;
                 case 6:
-                    showAllNumbers();
+                    test(0, 0);
                     break;
                 case 9:
                     printMenu();
@@ -131,6 +129,8 @@ public class Main {
     }
 
     private static void newNumber(String question, int answer, int id) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         if (id == 1) {
             AdditionEntity addition = new AdditionEntity();
@@ -160,6 +160,8 @@ public class Main {
     }
 
     private static void showAllNumbers() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Query queryAddition = entityManager.createQuery("SELECT COUNT(b.additionId) FROM AdditionEntity b");
         Query querySubstraction = entityManager.createQuery("SELECT COUNT(b.subtractionId) FROM SubtractionEntity b");
@@ -198,6 +200,8 @@ public class Main {
     }
 
     private static void updateAddtition() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         AdditionEntity addition = entityManager.find(AdditionEntity.class, 1);
         Query query = entityManager.createQuery("SELECT b FROM AdditionEntity b");
@@ -230,6 +234,8 @@ public class Main {
     }
 
     private static void updateSubtraction() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         SubtractionEntity subtraction = entityManager.find(SubtractionEntity.class, 1);
         Query query = entityManager.createQuery("SELECT b FROM SubtractionEntity b");
@@ -262,6 +268,8 @@ public class Main {
     }
 
     private static void updateMultiplication() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         MultiplicationEntity multiplication = entityManager.find(MultiplicationEntity.class, 1);
         Query query = entityManager.createQuery("SELECT b FROM MultiplicationEntity b");
@@ -294,6 +302,8 @@ public class Main {
     }
 
     private static void updateDivision() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         DivitionEntity divition = entityManager.find(DivitionEntity.class, 1);
         Query query = entityManager.createQuery("SELECT b FROM DivitionEntity b");
@@ -351,6 +361,8 @@ public class Main {
     }
 
     private static void deleteAddtitionNumber() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("SELECT b FROM AdditionEntity b");
         List<AdditionEntity> list = query.getResultList();
@@ -375,6 +387,8 @@ public class Main {
     }
 
     private static void deleteSubtractionNumber() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("SELECT b FROM SubtractionEntity b");
         List<SubtractionEntity> list = query.getResultList();
@@ -399,6 +413,8 @@ public class Main {
     }
 
     private static void deleteMultiplicationNumber() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("SELECT b FROM MultiplicationEntity b");
         List<MultiplicationEntity> list = query.getResultList();
@@ -424,6 +440,8 @@ public class Main {
 
 
     private static void deleteDivisionNumber() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("SELECT b FROM DivitionEntity b");
         List<DivitionEntity> deleteDivitionList = query.getResultList();
@@ -474,6 +492,8 @@ public class Main {
 
     private static void practiceAddtition() {
         while (true) {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             Query query = entityManager.createQuery("SELECT COUNT(b.additionId) FROM AdditionEntity b");
             System.out.println("Antal additionsrader: " + query.getSingleResult());
@@ -492,7 +512,10 @@ public class Main {
     }
 
     private static void practiceSubtraction() {
+
         while (true) {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             Query query = entityManager.createQuery("SELECT COUNT(b.subtractionId) FROM SubtractionEntity b");
             System.out.println("Antal subtraktionsrader: " + query.getSingleResult());
@@ -512,6 +535,8 @@ public class Main {
 
     private static void practiceMultiplication() {
         while (true) {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             Query query = entityManager.createQuery("SELECT COUNT(b.multiplicationId) FROM MultiplicationEntity b");
             System.out.println("Antal multiplikationsrader: " + query.getSingleResult());
@@ -531,6 +556,8 @@ public class Main {
 
     private static void practiceDivision() {
         while (true) {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             Query query = entityManager.createQuery("SELECT COUNT(b.divitionId) FROM DivitionEntity b");
             System.out.println("Antal divisionsrader: " + query.getSingleResult());
@@ -550,6 +577,8 @@ public class Main {
 
     private static void test(int points, int times) {
         while (times < 10) {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             double randomTable = Math.floor(Math.random() * 4);
             if (randomTable == 0) {
@@ -622,4 +651,3 @@ public class Main {
         System.out.println("Du fick: " + points + " av " + times + " poäng");
     }
 }
-
