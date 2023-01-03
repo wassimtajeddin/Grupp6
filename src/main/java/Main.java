@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,7 +18,7 @@ public class Main {
         boolean quit = false;
         printMenu();
         while (!quit) {
-            System.out.println("\nVälj (9 för att visa val):");
+        System.out.println("\nVälj (9 för att visa val):");
             int action = scanner.nextInt();
             scanner.nextLine();
 
@@ -66,7 +67,7 @@ public class Main {
     private static void addNumbers() {
         System.out.println("\nVälj tal typ:\n");
         System.out.println(
-                        "1  - Addition\n" +
+                "1  - Addition\n" +
                         "2  - Subtraktion\n" +
                         "3  - Multiplikation\n" +
                         "4  - Division");
@@ -176,7 +177,7 @@ public class Main {
 
     private static void updateNumbers() {
         System.out.println(
-                        "1 - Uppdatera ett tal i addition\n" +
+                "1 - Uppdatera ett tal i addition\n" +
                         "2 - Uppdatera ett tal i subtraktion\n" +
                         "3 - Uppdatera ett tal i multiplikation\n" +
                         "4 - Uppdatera ett tal i division");
@@ -496,20 +497,27 @@ public class Main {
             EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             Query query = entityManager.createQuery("SELECT COUNT(b.additionId) FROM AdditionEntity b");
-            System.out.println("Antal additionsrader: " + query.getSingleResult());
-            double randomID = Math.floor(Math.random() * Double.parseDouble(query.getSingleResult().toString())) + 1;
-            AdditionEntity addition = entityManager.find(AdditionEntity.class, randomID);
-            System.out.println("vill du avsluta övningen skriv: 00");
-            System.out.println("Uppgiften = " + addition.getAdditionQuestion());
-            int userInput = scanner.nextInt();
-            if (userInput == 00)
-                break;
-            if (userInput == addition.getAdditionAnswer())
-                System.out.println("Rätt");
-            else
-                System.out.println("Fel, rätt svar är: " + addition.getAdditionAnswer());
+            int userInput = -1;
+            try {
+                double randomID = Math.floor(Math.random() * Double.parseDouble(query.getSingleResult().toString())) + 1;
+                AdditionEntity addition = entityManager.find(AdditionEntity.class, randomID);
+                System.out.println("Uppgiften = " + addition.getAdditionQuestion());
+                System.out.println("vill du avsluta övningen skriv: 999");
+                userInput = scanner.nextInt();
+                if (userInput == 999) {
+                    break;
+                }
+                if (userInput != 999 && userInput == addition.getAdditionAnswer())
+                    System.out.println("Rätt");
+                else
+                    System.out.println("Fel, rätt svar är: " + addition.getAdditionAnswer());
+            } catch (NullPointerException e) {
+                System.out.println(" ");
+            }
         }
+
     }
+
 
     private static void practiceSubtraction() {
 
@@ -539,18 +547,22 @@ public class Main {
             EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             Query query = entityManager.createQuery("SELECT COUNT(b.multiplicationId) FROM MultiplicationEntity b");
-            System.out.println("Antal multiplikationsrader: " + query.getSingleResult());
-            double randomID = Math.floor(Math.random() * Double.parseDouble(query.getSingleResult().toString())) + 1;
-            MultiplicationEntity multiplication = entityManager.find(MultiplicationEntity.class, randomID);
-            System.out.println("vill du avsluta övningen skriv: 00");
-            System.out.println("Uppgiften = " + multiplication.getMultiplicationQuestion());
-            int userInput = scanner.nextInt();
-            if (userInput == 0)
-                break;
-            if (userInput == multiplication.getMultiplicationAnswer())
-                System.out.println("Rätt");
-            else
-                System.out.println("Fel, rätt svar är: " + multiplication.getMultiplicationAnswer());
+            int userInput =-1;
+            try {
+                double randomID = Math.floor(Math.random() * Double.parseDouble(query.getSingleResult().toString())) + 1;
+                MultiplicationEntity multiplication = entityManager.find(MultiplicationEntity.class, randomID);
+                System.out.println("Uppgiften = " + multiplication.getMultiplicationQuestion());
+                System.out.println("vill du avsluta övningen skriv: 999");
+                userInput = scanner.nextInt();
+                if (userInput == 999)
+                    break;
+                if (userInput == multiplication.getMultiplicationAnswer())
+                    System.out.println("Rätt");
+                else
+                    System.out.println("Fel, rätt svar är: " + multiplication.getMultiplicationAnswer());
+            }catch (NullPointerException e) {
+                System.out.println(" ");
+            }
         }
     }
 
